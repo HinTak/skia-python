@@ -1197,8 +1197,8 @@ matrix
             if (src.size() != dst.size())
                 throw std::runtime_error("src and dst must have the same size");
             if (src.empty())
-                return matrix.setPolyToPoly(nullptr, nullptr, 0);
-            return matrix.setPolyToPoly(&src[0], &dst[0], src.size());
+                return matrix.setPolyToPoly({nullptr, 0}, {nullptr, 0});
+            return matrix.setPolyToPoly({&src[0], src.size()}, {&dst[0], dst.size()});
         },
         R"docstring(
         Sets :py:class:`Matrix` to map src to dst.
@@ -1217,7 +1217,7 @@ matrix
         :return: true if :py:class:`Matrix` was constructed successfully
         )docstring",
         py::arg("src"), py::arg("dst"))
-    .def("invert", &SkMatrix::invert,
+    .def("invert", py::overload_cast<SkMatrix*>(&SkMatrix::invert, py::const_),
         R"docstring(
         Sets inverse to reciprocal matrix, returning true if :py:class:`Matrix`
         can be inverted.
