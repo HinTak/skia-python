@@ -1833,7 +1833,7 @@ rrect
         :return: bytes read, or 0 if length is less than kSizeInMemory
         )docstring",
         py::arg("buffer"))
-    .def("transform", &SkRRect::transform,
+    .def("transform", py::overload_cast<const SkMatrix&, SkRRect*>(&SkRRect::transform, py::const_),
         R"docstring(
         Transforms by :py:class:`RRect` by matrix, storing result in dst.
 
