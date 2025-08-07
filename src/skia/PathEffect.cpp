@@ -63,7 +63,11 @@ strokerec
 
         :py:meth:`applyToPath` will return true.
         )docstring")
-    .def("applyToPath", &SkStrokeRec::applyToPath,
+    .def("applyToPath",
+        [] (const SkStrokeRec& strokerec, SkPath* dst, const SkPath& src) {
+            auto dst2 = SkPathBuilder(*dst);
+            return strokerec.applyToPath(&dst2, src);
+        },
         R"docstring(
         Apply these stroke parameters to the src path, returning the result in
         dst.
