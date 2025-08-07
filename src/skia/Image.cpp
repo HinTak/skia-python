@@ -1400,7 +1400,7 @@ image
         )docstring")
     .def("isValid",
         [] (const SkImage& image, GrRecordingContext* ctx) {
-            return image.isValid(ctx->asRecorder());
+            return image.isValid(((ctx) ? ctx->asRecorder() : nullptr));
         },
         R"docstring(
         Returns true if :py:class:`Image` can be drawn on either raster surface
@@ -1747,7 +1747,7 @@ image
         )docstring")
     .def("makeSubset",
         [] (SkImage& image, const SkIRect& subset, GrDirectContext* direct) {
-            return image.makeSubset(direct->asRecorder(), subset, {});
+            return image.makeSubset(((direct) ? direct->asRecorder() : nullptr), subset, {});
         },
         R"docstring(
         Returns subset of :py:class:`Image`.
@@ -1946,7 +1946,7 @@ image
     .def("makeColorSpace",
         [] (const SkImage& image, const SkColorSpace* target,
             GrDirectContext* direct) {
-            return image.makeColorSpace(direct->asRecorder(), CloneColorSpace(target), {});
+            return image.makeColorSpace(((direct) ? direct->asRecorder() : nullptr), CloneColorSpace(target), {});
         },
         R"docstring(
         Creates :py:class:`Image` in target :py:class:`ColorSpace`.
@@ -1968,7 +1968,7 @@ image
         [] (const SkImage& image, SkColorType ct, const SkColorSpace* cs,
             GrDirectContext* direct) {
             return image.makeColorTypeAndColorSpace(
-                direct->asRecorder(), ct, CloneColorSpace(cs), {});
+                ((direct) ? direct->asRecorder() : nullptr), ct, CloneColorSpace(cs), {});
         },
         R"docstring(
         Experimental.
