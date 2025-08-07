@@ -1,4 +1,5 @@
 #include "common.h"
+#include <include/core/SkPathBuilder.h>
 #include <include/core/SkStrokeRec.h>
 #include <include/effects/Sk1DPathEffect.h>
 #include <include/effects/Sk2DPathEffect.h>
