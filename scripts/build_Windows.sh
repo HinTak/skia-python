@@ -15,6 +15,7 @@ cd skia && \
     patch -p1 < ../patch/skia-m140-minimize-download.patch && \
     patch -p1 < ../patch/skia-m132-colrv1-freetype.diff && \
     patch -p1 -R < ../patch/0001-Disable-OpenGL-for-Windows-on-ARM64.patch && \
+    patch -p1 < ../patch/fetch-gn-windows-arm64.diff && \
     python tools/git-sync-deps && \
     bin/gn gen out/Release --args="
 is_official_build=true
