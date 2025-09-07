@@ -877,7 +877,7 @@ path
         )docstring",
         py::arg("x"), py::arg("y"))
     .def("moveTo",
-        py::overload_cast<const SkPoint&>(&SkPath::moveTo),
+        py::overload_cast<const SkPoint>(&SkPath::moveTo),
         R"docstring(
         Adds beginning of contour at :py:class:`Point` p.
 
