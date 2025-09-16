@@ -179,9 +179,9 @@ setup(
     data_files=data_files,
     install_requires=[
         'numpy',
-        'pybind11>=2.6,<3.0.0'
+        'pybind11>=2.6'
     ],
-    setup_requires=['pybind11>=2.6,<3.0.0'],
+    setup_requires=['pybind11>=2.6'],
     cmdclass={'build_ext': BuildExt},
     classifiers=[
         'Development Status :: 4 - Beta',
