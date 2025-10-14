@@ -1797,7 +1797,7 @@ path
     //     py::overload_cast<const SkMatrix&, SkApplyPerspectiveClip>(
     //         &SkPath::transform),
     //     "Transforms verb array, SkPoint array, and weight by matrix.")
-    .def("getLastPt", &SkPath::getLastPt,
+    .def("getLastPt", py::overload_cast<SkPoint*>(&SkPath::getLastPt, py::const_),
         R"docstring(
         Returns last point on :py:class:`Path` in lastPt.
 
