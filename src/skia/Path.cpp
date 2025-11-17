@@ -2227,11 +2227,13 @@ PathBuilder
     .def("snapshot", &SkPathBuilder::snapshot,
         R"docstring(
         the builder is unchanged after returning this path
-        )docstring")
+        )docstring",
+        py::arg("mx") = nullptr)
     .def("detach", &SkPathBuilder::detach,
         R"docstring(
         the builder is reset to empty after returning this path
-        )docstring")
+        )docstring",
+        py::arg("mx") = nullptr)
     .def("setFillType", &SkPathBuilder::setFillType, py::arg("fillType"))
     .def("setIsVolatile", &SkPathBuilder::setIsVolatile, py::arg("isVolatile"))
     .def("reset", &SkPathBuilder::reset)
