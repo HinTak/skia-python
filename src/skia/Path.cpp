@@ -2462,12 +2462,12 @@ PathBuilder
         },
         py::arg("points"), py::arg("isClosed"))
     .def("incReserve",
-        py::overload_cast<int, int>(&SkPathBuilder::incReserve),
+        py::overload_cast<int, int, int>(&SkPathBuilder::incReserve),
         R"docstring(
         Performance hint, to reserve extra storage for subsequent calls to
         lineTo, quadTo, etc.
         )docstring",
-        py::arg("extraPtCount"), py::arg("extraVerbCount"))
+        py::arg("extraPtCount"), py::arg("extraVerbCount"), py::arg("extraConicCount"))
     .def("incReserve",
         py::overload_cast<int>(&SkPathBuilder::incReserve),
         py::arg("extraPtCount"))
