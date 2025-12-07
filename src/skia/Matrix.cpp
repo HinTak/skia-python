@@ -38,12 +38,15 @@ void SetItem(SkMatrix& m, int index, SkScalar value) {
 }
 
 void initMatrix(py::module &m) {
+/* SkApplyPerspectiveClip removed in m143 */
+/*
 py::enum_<SkApplyPerspectiveClip>(m, "ApplyPerspectiveClip")
     .value("kNo", SkApplyPerspectiveClip::kNo,
         "Don't pre-clip the geometry before applying the (perspective) matrix.")
     .value("kYes", SkApplyPerspectiveClip::kYes,
         "Do pre-clip the geometry before applying the (perspective) matrix.")
     .export_values();
+*/
 
 // Matrix
 py::class_<SkMatrix> matrix(m, "Matrix", R"docstring(
@@ -1445,18 +1448,15 @@ matrix
         )docstring",
         py::arg("dx"), py::arg("dy"))
     .def("mapRect",
-        py::overload_cast<const SkRect&, SkApplyPerspectiveClip>(
+        py::overload_cast<const SkRect&>(
             &SkMatrix::mapRect, py::const_),
         R"docstring(
         Returns bounds of src corners mapped by :py:class:`Matrix`.
 
         :param skia.Rect src: rectangle to map
-        :param skia.ApplyPerspectiveClip pc: whether to apply perspective
-            clipping
         :return: mapped bounds
         )docstring",
-        py::arg("src"),
-        py::arg_v("pc", SkApplyPerspectiveClip::kYes, "skia.ApplyPerspectiveClip.kYes"))
+        py::arg("src"))
     .def("mapRectToQuad",
         [] (const SkMatrix& matrix, const SkRect& rect) {
             std::vector<SkPoint> dst(4);

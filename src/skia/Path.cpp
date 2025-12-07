@@ -1775,7 +1775,7 @@ path
     //     py::overload_cast<SkScalar, SkScalar>(&SkPath::offset),
     //     "Offsets SkPoint array by (dx, dy).")
     .def("transform",
-        py::overload_cast<const SkMatrix&, SkPath*, SkApplyPerspectiveClip>(
+        py::overload_cast<const SkMatrix&, SkPath*>(
             &SkPath::transform, py::const_),
         R"docstring(
         Transforms verb array, :py:class:`Point` array, and weight by matrix.
@@ -1788,11 +1788,8 @@ path
             :py:class:`Path`
         :param skia.Path dst: overwritten, transformed copy of :py:class:`Path`;
             may be nullptr
-        :param skia.ApplyPerspectiveClip pc: whether to apply perspective
-            clipping
         )docstring",
-        py::arg("matrix"), py::arg("dst") = nullptr,
-        py::arg_v("pc", SkApplyPerspectiveClip::kYes, "skia.ApplyPerspectiveClip.kYes"))
+        py::arg("matrix"), py::arg("dst") = nullptr)
     // .def("transform",
     //     py::overload_cast<const SkMatrix&, SkApplyPerspectiveClip>(
     //         &SkPath::transform),
