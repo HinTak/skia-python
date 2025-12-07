@@ -69,6 +69,8 @@ py::enum_<SkPathDirection>(m, "PathDirection")
         "clockwise direction for adding closed contours")
     .value("kCCW", SkPathDirection::kCCW,
         "counter-clockwise direction for adding closed contours")
+    .value("kDefault", SkPathDirection::kDefault,
+        "default = clockwise direction")
     .export_values();
 
 py::enum_<SkPathSegmentMask>(m, "PathSegmentMask")
@@ -406,9 +408,9 @@ path
         )docstring",
         py::arg("points"), py::arg("verbs"), py::arg("conicWeights"),
         py::arg("fillType"), py::arg("isVolatile") = false)
-    .def_static("Rect", &SkPath::Rect,
+    .def_static("Rect", py::overload_cast<const SkRect&, SkPathDirection, unsigned>(&SkPath::Rect),
         py::arg("rect"),
-        py::arg_v("pathDirection", SkPathDirection::kCW, "skia.PathDirection.kCW"),
+        py::arg_v("pathDirection", SkPathDirection::kDefault, "skia.PathDirection.kDefault"),
         py::arg("startIndex") = 0)
     .def_static("Oval",
         py::overload_cast<const SkRect&, SkPathDirection, unsigned>(
