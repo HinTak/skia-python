@@ -1847,7 +1847,7 @@ path
 
         :return: SegmentMask bits or zero
         )docstring")
-    .def("contains", &SkPath::contains,
+    .def("contains", py::overload_cast<SkScalar, SkScalar>(&SkPath::contains, py::const_),
         R"docstring(
         Returns true if the point (x, y) is contained by :py:class:`Path`,
         taking into account FillType.
