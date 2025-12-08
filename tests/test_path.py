@@ -835,7 +835,7 @@ def test_PathBuilder_addPolygon(path_builder):
     )
 
 
-@pytest.mark.parametrize('args', [(2, 2), (2, )])
+@pytest.mark.parametrize('args', [(2, 2, 2), (2, )])
 def test_PathBuilder_incReserve(path_builder, args):
     path_builder.incReserve(*args)
 
