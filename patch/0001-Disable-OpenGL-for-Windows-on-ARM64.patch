@@ -33,19 +33,19 @@ index ef913e9..33f3208 100644
        sources += [ "src/gpu/ganesh/gl/GrGLMakeNativeInterface_none.cpp" ]
      }
 @@ -2185,10 +2187,10 @@ if (skia_enable_tools) {
-           "tools/ganesh/gl/win/SkWGL.h",
-           "tools/ganesh/gl/win/SkWGL_win.cpp",
-         ]
--      libs += [
--        "Gdi32.lib",
--        "OpenGL32.lib",
--        ]
-+        libs += [ "Gdi32.lib" ]
-+        if (target_cpu != "arm64") {
-+          libs += [ "OpenGL32.lib" ]
-+        }
+             "tools/ganesh/gl/win/SkWGL.h",
+             "tools/ganesh/gl/win/SkWGL_win.cpp",
+           ]
+-        libs += [
+-          "Gdi32.lib",
+-          "OpenGL32.lib",
+-          ]
++          libs += [ "Gdi32.lib" ]
++          if (target_cpu != "arm64") {
++            libs += [ "OpenGL32.lib" ]
++          }
+         }
        }
-     }
  
 diff --git b/src/gpu/ganesh/gl/win/GrGLMakeNativeInterface_win.cpp a/src/gpu/ganesh/gl/win/GrGLMakeNativeInterface_win.cpp
 index f33f2e1..da3cbe2 100644
