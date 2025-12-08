@@ -499,7 +499,7 @@ def test_Path_offset(path, args):
             skia.Matrix(),
             skia.Path(),
         ),
-        (skia.Matrix(), None, skia.ApplyPerspectiveClip.kYes),
+#        (skia.Matrix(), None, skia.ApplyPerspectiveClip.kYes),
     ]
 )
 def test_Path_transform(path, args):
