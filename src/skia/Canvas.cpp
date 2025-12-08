@@ -2546,7 +2546,7 @@ canvas
     m.def("MakeNullCanvas", &SkMakeNullCanvas);
 
 py::class_<SkSVGCanvas>(m, "SVGCanvas")
-    .def_static("Make", &SkSVGCanvas::Make,
+    .def_static("Make", py::overload_cast<const SkRect&, SkWStream*, uint32_t>(&SkSVGCanvas::Make),
         R"docstring(
         Returns a new canvas that will generate SVG commands from its draw
         calls, and send them to the provided stream. Ownership of the stream is
