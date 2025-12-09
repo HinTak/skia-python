@@ -62,7 +62,7 @@ diff --git a/gn/gn_to_bp.py b/gn/gn_to_bp.py
 index 24195d2eea..2bbe758676 100755
 --- a/gn/gn_to_bp.py
 +++ b/gn/gn_to_bp.py
-@@ -771,7 +771,12 @@ here = os.path.dirname(__file__)
+@@ -771,7 +771,13 @@ here = os.path.dirname(__file__)
  defs = gn_to_bp_utils.GetArchSources(os.path.join(here, 'opts.gni'))
  
  def get_defines(json):
@@ -71,6 +71,7 @@ index 24195d2eea..2bbe758676 100755
 +  # TODO(kjlubick, fmalita) Add this back in to enforce Android doesn't
 +  # use these methods anymore.
 +  defines.remove("SK_HIDE_PATH_EDIT_METHODS")
++  defines.remove('SK_DISABLE_LEGACY_NONCONST_SERIAL_PROCS')
 +  return defines
 +
  android_defines      = get_defines(js)
