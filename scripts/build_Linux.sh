@@ -19,7 +19,8 @@ fi
 
 # Build skia
 cd skia && \
-    patch -p1 < ../patch/skia-m142-minimize-download.patch && \
+    patch -R -p1 < ../patch/0001-Reland-Make-SkPath-immutable-on-GN-build.patch && \
+    patch -p1 < ../patch/skia-m143-minimize-download.patch && \
     patch -p1 < ../patch/skia-m132-colrv1-freetype.diff && \
     patch -p1 < ../patch/skia-m132-egl-runtime.diff && \
     python3 tools/git-sync-deps && \
