@@ -183,6 +183,7 @@ jobs:
            path: ./dist/*.whl
        - run: python -m pip install dist/*.whl
        - run: python -m pip install moderngl
+       - run: python -c 'import skia; print(skia.__version__)'
        - run: python -c 'import moderngl; moderngl_context = moderngl.create_standalone_context(backend="egl"); import skia; interface = skia.GrGLInterface.MakeEGL() ; assert isinstance(skia.GrDirectContext.MakeGL(interface), skia.GrContext) ; print("Success3")'
        - run: eglinfo || /bin/true
        - run: xvfb-run -s "-screen 0 640x480x24" glxinfo
