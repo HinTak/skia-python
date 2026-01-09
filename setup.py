@@ -93,6 +93,8 @@ else:
         ('SK_GL', ''),
         ('SK_VULKAN', ''),
         ('SK_GANESH', '1'),
+        ('PYBIND11_DETAILED_ERROR_MESSAGES', '1'),
+        ('PYBIND11_HANDLE_REF_DEBUG', '1'),
     ]
     LIBRARIES = [
         'dl',
@@ -111,11 +113,13 @@ else:
         '-Wno-attributes',
         '-fdata-sections',
         '-ffunction-sections',
+        '-g',
     ]
     EXTRA_LINK_ARGS = [
         '-Wl,--gc-sections',
         '-s',
         '-O3',
+        '-g',
     ]
 
 
