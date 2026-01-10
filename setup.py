@@ -113,12 +113,12 @@ else:
         '-Wno-attributes',
         '-fdata-sections',
         '-ffunction-sections',
+        '-Wall',
         '-g',
     ]
     EXTRA_LINK_ARGS = [
         '-Wl,--gc-sections',
         '-s',
-        '-O3',
         '-g',
     ]
 
