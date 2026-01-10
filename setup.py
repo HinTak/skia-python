@@ -88,6 +88,9 @@ elif sys.platform == 'darwin':
         'OpenGL',
     ]
 else:
+    os.environ["CC"] = "clang"
+    os.environ["CXX"] = "clang++"
+    os.environ["LDSHARED"] = "clang -shared"
     DEFINE_MACROS = [
         ('VERSION_INFO', __version__),
         ('SK_GL', ''),
