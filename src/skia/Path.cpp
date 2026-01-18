@@ -2452,7 +2452,7 @@ PathBuilder
             &SkPathBuilder::addRRect),
         py::arg("rrect"),
         py::arg_v("pathDirection", SkPathDirection::kCW, "skia.PathDirection.kCW"))
-    .def("addCircle", &SkPathBuilder::addCircle,
+    .def("addCircle", py::overload_cast<SkScalar, SkScalar, SkScalar, SkPathDirection>(&SkPathBuilder::addCircle),
         py::arg("center_x"), py::arg("center_y"), py::arg("radius"),
         py::arg_v("pathDirection", SkPathDirection::kCW, "skia.PathDirection.kCW"))
     .def("addPolygon",
