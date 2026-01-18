@@ -1715,7 +1715,7 @@ image
         py::arg("encodedImageFormat"), py::arg("quality"))
     .def("encodeToData",
         [] (SkImage& image) {
-            sk_sp<SkData> data = image.refEncodedData();
+            sk_sp<const SkData> data = image.refEncodedData();
             if (!data) {
                 data = SkPngEncoder::Encode(nullptr, &image, {});
             }
