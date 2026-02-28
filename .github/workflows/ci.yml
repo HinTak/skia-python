@@ -55,7 +55,6 @@ jobs:
           CIBW_TEST_SKIP: "*-macosx_arm64"
 
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: wheel-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.cp }}
           path: ./wheelhouse/*.whl
@@ -104,7 +103,6 @@ jobs:
           CIBW_TEST_SKIP: "*-macosx_arm64"
 
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: wheel-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.cp }}
           path: ./wheelhouse/*.whl
