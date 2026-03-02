@@ -524,7 +524,7 @@ typeface
     .def("unicharsToGlyphs",
         [] (const SkTypeface& typeface, const std::vector<SkUnichar>& chars) {
             std::vector<SkGlyphID> glyphs(chars.size());
-            typeface.unicharsToGlyphs({&chars[0], chars.size()}, {&glyphs[0], glyphs.size()});
+            typeface.unicharsToGlyphs({chars.data(), chars.size()}, {glyphs.data(), glyphs.size()});
             return glyphs;
         },
         R"docstring(
@@ -556,7 +556,7 @@ typeface
     .def("getTableTags",
         [] (const SkTypeface& typeface) {
             std::vector<SkFontTableTag> tags(typeface.countTables());
-            size_t size = typeface.readTableTags({&tags[0], tags.size()});
+            size_t size = typeface.readTableTags({tags.data(), tags.size()});
             if (size < tags.size())
                 throw std::runtime_error("Failed to get table tags.");
             return tags;
@@ -613,7 +613,7 @@ typeface
             const std::vector<SkGlyphID>& glyphs) -> py::object {
             std::vector<int32_t> adjustments(glyphs.size() - 1);
             auto result = typeface.getKerningPairAdjustments(
-                {&glyphs[0], glyphs.size()}, {(glyphs.size() > 1) ? &adjustments[0] : nullptr, adjustments.size()});
+                {glyphs.data(), glyphs.size()}, {(glyphs.size() > 1) ? adjustments.data() : nullptr, adjustments.size()});
             if (!result) {
                 // Kerning is not supported for this typeface.
                 return py::none();
@@ -1312,10 +1312,10 @@ font
     .def("textToGlyphs",
         [] (const SkFont& font, const std::string& text,
             SkTextEncoding encoding) {
-            int count = font.countText(&text[0], text.size(), encoding);
+            int count = font.countText(text.data(), text.size(), encoding);
             std::vector<SkGlyphID> glyphs(count);
             font.textToGlyphs(
-                &text[0], text.size(), encoding, {&glyphs[0], glyphs.size()});
+                text.data(), text.size(), encoding, {glyphs.data(), glyphs.size()});
             return glyphs;
         },
         R"docstring(
@@ -1355,14 +1355,14 @@ font
     .def("unicharsToGlyphs",
         [] (const SkFont& font, const std::vector<SkUnichar>& uni) {
             std::vector<SkGlyphID> glyphs(uni.size());
-            font.unicharsToGlyphs({&uni[0], uni.size()}, {&glyphs[0], glyphs.size()});
+            font.unicharsToGlyphs({uni.data(), uni.size()}, {glyphs.data(), glyphs.size()});
             return glyphs;
         },
         py::arg("uni"))
     .def("countText",
         [] (const SkFont& font, const std::string& text,
             SkTextEncoding encoding) {
-            return font.countText(&text[0], text.size(), encoding);
+            return font.countText(text.data(), text.size(), encoding);
         },
         R"docstring(
         Returns number of glyphs represented by text.
@@ -1380,7 +1380,7 @@ font
         [] (const SkFont& font, const std::string& text,
             SkTextEncoding encoding, SkRect* bounds, const SkPaint* paint) {
             return font.measureText(
-                &text[0], text.size(), encoding, bounds, paint);
+                text.data(), text.size(), encoding, bounds, paint);
         },
         R"docstring(
         Returns the advance width of text.
@@ -1402,7 +1402,7 @@ font
     .def("getWidths",
         [] (const SkFont& font, const std::vector<SkGlyphID>& glyphs) {
             std::vector<SkScalar> width(glyphs.size());
-            font.getWidths({&glyphs[0], glyphs.size()}, {&width[0], width.size()});
+            font.getWidths({glyphs.data(), glyphs.size()}, {width.data(), width.size()});
             return width;
         },
         R"docstring(
@@ -1418,7 +1418,7 @@ font
             std::vector<SkScalar> width(glyphs.size());
             std::vector<SkRect> bounds(glyphs.size());
             font.getWidthsBounds(
-                {&glyphs[0], glyphs.size()}, {&width[0], width.size()}, {&bounds[0], bounds.size()}, paint);
+                {glyphs.data(), glyphs.size()}, {width.data(), width.size()}, {bounds.data(), bounds.size()}, paint);
             return py::make_tuple(width, bounds);
         },
         R"docstring(
@@ -1435,7 +1435,7 @@ font
         [] (const SkFont& font, const std::vector<SkGlyphID>& glyphs,
             const SkPaint* paint) {
             std::vector<SkRect> bounds(glyphs.size());
-            font.getBounds({&glyphs[0], glyphs.size()}, {&bounds[0], bounds.size()}, paint);
+            font.getBounds({glyphs.data(), glyphs.size()}, {bounds.data(), bounds.size()}, paint);
             return bounds;
         },
         R"docstring(
@@ -1455,7 +1455,7 @@ font
         [] (const SkFont& font, const std::vector<SkGlyphID>& glyphs,
             const SkPoint& origin) {
             std::vector<SkPoint> pos(glyphs.size());
-            font.getPos({&glyphs[0], glyphs.size()}, {&pos[0], pos.size()}, origin);
+            font.getPos({glyphs.data(), glyphs.size()}, {pos.data(), pos.size()}, origin);
             return pos;
         },
         R"docstring(
@@ -1473,7 +1473,7 @@ font
         [] (const SkFont& font, const std::vector<SkGlyphID>& glyphs,
             const SkScalar& origin) {
             std::vector<SkScalar> xpos(glyphs.size());
-            font.getXPos({&glyphs[0], glyphs.size()}, {&xpos[0], xpos.size()}, origin);
+            font.getXPos({glyphs.data(), glyphs.size()}, {xpos.data(), xpos.size()}, origin);
             return xpos;
         },
         R"docstring(

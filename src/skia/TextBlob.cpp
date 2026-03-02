@@ -94,7 +94,7 @@ textblob
                         "len(text) = {} does not match len(pos) = {}").format(
                         count, pos_.size()));
             return SkTextBlob::MakeFromPosText(
-                text.c_str(), text.size(), {&pos_[0], pos_.size()}, font, encoding);
+                text.c_str(), text.size(), {pos_.data(), pos_.size()}, font, encoding);
         }),
         R"docstring(
         Creates :py:class:`TextBlob` with a single run.
@@ -286,7 +286,7 @@ textblob
                 throw py::value_error(stream.str());
             }
             return SkTextBlob::MakeFromPosTextH(
-                text.c_str(), text.size(), {&xpos_[0], xpos_.size()}, constY, font, encoding);
+                text.c_str(), text.size(), {xpos_.data(), xpos_.size()}, constY, font, encoding);
         },
         R"docstring(
         Returns a textblob built from a single run of text with x-positions and
@@ -316,7 +316,7 @@ textblob
                 throw std::runtime_error(
                     "text and pos must have the same number of elements.");
             return SkTextBlob::MakeFromPosText(
-                text.c_str(), text.size(), {&pos[0], pos.size()}, font, encoding);
+                text.c_str(), text.size(), {pos.data(), pos.size()}, font, encoding);
         },
         R"docstring(
         Returns a textblob built from a single run of text with x-positions and
@@ -344,7 +344,7 @@ textblob
                 throw std::runtime_error(
                     "text and xform must have the same number of elements.");
             return SkTextBlob::MakeFromRSXform(
-                text.c_str(), text.size(), {&xform[0], xform.size()}, font, encoding);
+                text.c_str(), text.size(), {xform.data(), xform.size()}, font, encoding);
         },
         py::arg("text"), py::arg("xform"), py::arg("font"),
         py::arg_v("encoding", SkTextEncoding::kUTF8, "skia.TextEncoding.kUTF8"))

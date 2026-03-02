@@ -712,7 +712,7 @@ path
             if (max == 0)
                 max = path.countVerbs();
             std::vector<SkPoint> points(max);
-            auto length = path.getPoints({&points[0], max});
+            auto length = path.getPoints({points.data(), max});
             if (length < max)
                 points.erase(points.begin() + length, points.end());
             return points;
@@ -743,7 +743,7 @@ path
             if (max == 0)
                 max = path.countVerbs();
             std::vector<uint8_t> verbs(max);
-            auto length = path.getVerbs({&verbs[0], max});
+            auto length = path.getVerbs({verbs.data(), max});
             if (length < max)
                 verbs.erase(verbs.begin() + length, verbs.end());
             std::vector<SkPath::Verb> verbs_(verbs.size());
@@ -1606,7 +1606,7 @@ path
                     << " elements).";
                 throw py::value_error(stream.str());
             }
-            return path.addRoundRect(rect, {&radii_[0], radii_.size()}, dir);
+            return path.addRoundRect(rect, {radii_.data(), radii_.size()}, dir);
         },
         R"docstring(
         Appends :py:class:`RRect` to :py:class:`Path`, creating a new closed
@@ -1660,7 +1660,7 @@ path
         py::arg("rrect"), py::arg("dir"), py::arg("start"))
     .def("addPoly",
         [] (SkPath& path, const std::vector<SkPoint>& pts, bool close) {
-            return path.addPoly({&pts[0], pts.size()}, close);
+            return path.addPoly({pts.data(), pts.size()}, close);
         },
         R"docstring(
         Adds contour created from pts.
@@ -2035,7 +2035,7 @@ path
             SkScalar w, int pow2) {
             auto size = (1 + 2 * (1 << pow2));
             std::vector<SkPoint> pts(size);
-            SkPath::ConvertConicToQuads(p0, p1, p2, w, &pts[0], pow2);
+            SkPath::ConvertConicToQuads(p0, p1, p2, w, pts.data(), pow2);
             // TODO: Shall we return the return value?
             return pts;
         },
