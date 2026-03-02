@@ -15,11 +15,11 @@ Binary package is available on PyPI:
 pip install skia-python
 ```
 
-Supported platforms: Python 3.8-3.13 (CPython) on
+Supported platforms: Python 3.8-3.14 (CPython) on
 
 - Linux x86_64, aarch64
 - macOS x86_64, arm64
-- Windows x86_64, arm64 ; arm64 for the windows 11 and Python 3.11-3.13 combination only.
+- Windows x86_64, arm64 ; arm64 for the windows 11 and Python 3.11-3.14 combination only.
 
 **IMPORTANT:** Starting v87.9rc1 / v138.0rc1, `libEGL.so` (from mesa-libEGL, libglvnd, or your graphic
 card's vendor e.g. NVidia) is required to be present on Linux hosts. This is associated
@@ -74,7 +74,9 @@ https://kyamagu.github.io/skia-python
   [README.m129](relnotes/README.m129.md), [README.m130](relnotes/README.m130.md), [README.m131](relnotes/README.m131.md),
   [README.m132](relnotes/README.m132.md), [README.m133](relnotes/README.m133.md), [README.m134](relnotes/README.m134.md),
   [README.m135](relnotes/README.m135.md), [README.m136](relnotes/README.m136.md), [README.m137](relnotes/README.m137.md),
-  [README.m138](relnotes/README.m138.md).
+  [README.m138](relnotes/README.m138.md), [README.m139](relnotes/README.m139.md), [README.m140](relnotes/README.m140.md),
+  [README.m141](relnotes/README.m141.md), [README.m142](relnotes/README.m142.md), [README.m143](relnotes/README.m143.md),
+  [README.m144](relnotes/README.m144.md).
 
 ## Contributing
 
