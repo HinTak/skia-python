@@ -11,6 +11,9 @@ Since m138:
 
 - CI: we now build for macos-14 (up from macos-13), and also python 3.14
 
+- Updates the project to Skia milestone m144, aligning Python
+  bindings/tests/CI with upstream API changes (SkSpan-based signatures,
+  overload disambiguation). Not user-visible.
 
 Since m143:
 
