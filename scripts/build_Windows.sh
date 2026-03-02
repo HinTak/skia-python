@@ -12,7 +12,7 @@ fi
 
 # Build skia
 cd skia && \
-    patch -R -p1 < ../patch/0001-Reland-Make-SkPath-immutable-on-GN-build.patch && \
+    patch -R -p1 < ../patch/0001-Make-SkPath-immutable-on-GN-build.patch && \
     patch -p1 < ../patch/skia-m144-minimize-download.patch && \
     patch -p1 < ../patch/skia-m132-colrv1-freetype.diff && \
     patch -p1 -R < ../patch/0001-Disable-OpenGL-for-Windows-on-ARM64.patch && \
