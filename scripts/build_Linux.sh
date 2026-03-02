@@ -24,7 +24,7 @@ cd skia && \
     patch -R -p1 < ../patch/0001-Remove-unused-methods.patch                    && \
     patch -R -p1 < ../patch/0001-Remove-obsolete-types-in-SkPath.h.patch        && \
     patch -R -p1 < ../patch/0001-Remove-dead-code-related-to-SkPathRef.patch    && \
-    patch -R -p1 < ../patch/0001-Reland-Make-SkPath-immutable-on-GN-build.patch && \
+    patch -R -p1 < ../patch/0001-Make-SkPath-immutable-on-GN-build.patch && \
     patch -p1 < ../patch/skia-m145-minimize-download.patch && \
     patch -p1 < ../patch/skia-m132-colrv1-freetype.diff && \
     patch -p1 < ../patch/skia-m132-egl-runtime.diff && \
