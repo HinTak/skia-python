@@ -22,7 +22,8 @@ function apply_patch {
 }
 
 cd skia && \
-    patch -p1 < ../patch/skia-m138-minimize-download.patch && \
+    patch -R -p1 < ../patch/0001-Make-SkPath-immutable-on-GN-build.patch && \
+    patch -p1 < ../patch/skia-m144-minimize-download.patch && \
     patch -p1 < ../patch/skia-m132-colrv1-freetype.diff && \
     python3 tools/git-sync-deps && \
     bin/gn gen out/Release --args="
