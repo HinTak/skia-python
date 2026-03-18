@@ -1,0 +1,104 @@
+From 2b5b77349ba5e80373d3700211529cd8acd7822a Mon Sep 17 00:00:00 2001
+From: Kaylee Lubick <kjlubick@google.com>
+Date: Wed, 5 Nov 2025 17:23:02 -0500
+Subject: [PATCH] Disable legacy PNG encoding/decoding in SkPicture
+
+All major clients should be updated to supply SkSerialProcs
+or SkDeserialProcs and explicitly serialize/deserialize images.
+
+Change-Id: I97ba629d7717cb2f3464102f4017eb7dce4cade0
+Reviewed-on: https://skia-review.googlesource.com/c/skia/+/1094096
+Reviewed-by: Florin Malita <fmalita@google.com>
+Commit-Queue: Kaylee Lubick <kjlubick@google.com>
+Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
+---
+ src/core/BUILD.bazel       |  4 ----
+ src/core/SkReadBuffer.cpp  | 13 +------------
+ src/core/SkWriteBuffer.cpp | 25 -------------------------
+ 3 files changed, 1 insertion(+), 41 deletions(-)
+
+diff --git a/src/core/BUILD.bazel b/src/core/BUILD.bazel
+index 46e9282cd0..bd24486665 100644
+--- a/src/core/BUILD.bazel
++++ b/src/core/BUILD.bazel
+@@ -506,10 +506,6 @@ skia_cc_library(
+         "//include/utils:core_hdrs",
+     ],
+     features = ["layering_check"],
+-    local_defines = [
+-        "SK_DISABLE_LEGACY_PNG_WRITEBUFFER",
+-        "SK_DISABLE_LEGACY_IMAGE_READBUFFER",
+-    ],
+     textual_hdrs = [
+         "//src/opts:textual_hdrs",
+         ":textual_hdrs",
+diff --git a/src/core/SkReadBuffer.cpp b/src/core/SkReadBuffer.cpp
+index d043532af0..f22c26bb58 100644
+--- a/src/core/SkReadBuffer.cpp
++++ b/src/core/SkReadBuffer.cpp
+@@ -355,18 +355,7 @@ static sk_sp<SkImage> deserialize_image(sk_sp<SkData> data, SkDeserialProcs dPro
+         image = dProcs.fImageProc(data->data(), data->size(), alphaType, dProcs.fImageCtx);
+ #endif
+     }
+-    if (image) {
+-        return image;
+-    }
+-#if !defined(SK_DISABLE_LEGACY_IMAGE_READBUFFER)
+-    // The default implementation will encode to PNG unless the input SkImages came from
+-    // a codec that was built-in (e.g. JPEG/WEBP). Thus, we should be sure to try all
+-    // available codecs when reading images out of an SKP.
+-    return SkImages::DeferredFromEncodedData(std::move(data), alphaType);
+-#else
+-    SkDEBUGFAIL("Need to set image proc in SkDeserialProcs");
+-    return nullptr;
+-#endif
++    return image;
+ }
+ 
+ static sk_sp<SkImage> add_mipmaps(sk_sp<SkImage> img, sk_sp<SkData> data,
+diff --git a/src/core/SkWriteBuffer.cpp b/src/core/SkWriteBuffer.cpp
+index e0d4115b67..6bc8539704 100644
+--- a/src/core/SkWriteBuffer.cpp
++++ b/src/core/SkWriteBuffer.cpp
+@@ -24,16 +24,6 @@
+ #include "src/core/SkPtrRecorder.h"
+ #include "src/image/SkImage_Base.h"
+ 
+-#if !defined(SK_DISABLE_LEGACY_PNG_WRITEBUFFER)
+-#include "include/core/SkBitmap.h"
+-#include "include/core/SkStream.h"
+-#if defined(SK_CODEC_ENCODES_PNG_WITH_RUST)
+-#include "include/encode/SkPngRustEncoder.h"
+-#else
+-#include "include/encode/SkPngEncoder.h"
+-#endif  // defined(SK_CODEC_ENCODES_PNG_WITH_RUST)
+-#endif  // !defined(SK_DISABLE_LEGACY_PNG_WRITEBUFFER)
+-
+ #include <cstring>
+ #include <utility>
+ 
+@@ -177,21 +167,6 @@ static sk_sp<SkData> serialize_image(const SkImage* image, SkSerialProcs procs)
+     if (data) {
+         return data;
+     }
+-#if !defined(SK_DISABLE_LEGACY_PNG_WRITEBUFFER)
+-    SkBitmap bm;
+-    auto ib = as_IB(image);
+-    if (!ib->getROPixels(ib->directContext(), &bm)) {
+-        return nullptr;
+-    }
+-#if defined(SK_CODEC_ENCODES_PNG_WITH_RUST)
+-    auto result = SkPngRustEncoder::Encode(bm.pixmap(), {});
+-#else
+-    auto result = SkPngEncoder::Encode(bm.pixmap(), {});
+-#endif  // defined(SK_CODEC_ENCODES_PNG_WITH_RUST)
+-    if (result) {
+-        return result;
+-    }
+-#endif  // !(defined(SK_DISABLE_LEGACY_PNG_WRITEBUFFER)
+     return nullptr;
+ }
+ 
+-- 
+2.53.0
+
