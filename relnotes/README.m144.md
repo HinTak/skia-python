@@ -1,3 +1,18 @@
+From v144.0.post1 to  v144.0.post2:
+
+- Reverse upstream PNG change to fix m144 regression (#362) with
+  `Paint.setShader(image.makeShader(...))`
+
+- CI: Adding Python 3.14 Free-Threading (PEP 703 / cp314t) to build matrix
+
+
+From v144.0 to v144.0.post1:
+
+- bumped version for incomplete v144.0 pypi upload
+
+- CI: bumped cibuildwheel version for more reliable CI provisioning.
+
+
 Since m138:
 
 - Vulkan APIs now take `skia.VkFormat.*` `skia.VkImageLayout.*`
