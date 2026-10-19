@@ -155,7 +155,7 @@ line a minimum height taken from a font of its own, so the lines keep a common r
 whatever they contain.
 
 The name is borrowed from typesetting, where a strut is an invisible box of zero width
-with a fixed height and depth that is dropped into a line to hold it open. Skia's
+with a fixed height and depth that is dropped into a line to hold it open. Skia's strut
 behaves the same way, as though a zero width character in a font of its own sat at the
 start of every line::
 
