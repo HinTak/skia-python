@@ -1,3 +1,21 @@
+v144.1:
+
+- CI: adding Python 3.15 wheels
+
+- M44 constructors and methods
+  - Needs some partial setters, getters / viewers, and tests. The getters and
+    setters rc and setRC should be bound to python's __getitem__ .
+
+- Binding the TextStyle and StrutStyle height accessors
+  - Needs regeneration / verification of the pngs and base64 data of png.
+
+- Throw exception if memory backstore smaller than Pixmap info's expected size
+  - Further work in similar APIs/areas needed
+
+- Binding SkFontScanner
+  - Further work needed
+
+
 From v144.0.post1 to  v144.0.post2:
 
 - Reverse upstream PNG change to fix m144 regression (#362) with
