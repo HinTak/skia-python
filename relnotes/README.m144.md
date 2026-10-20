@@ -2,6 +2,8 @@ v144.1:
 
 - CI: adding Python 3.15 wheels
 
+- Transfer to skia-python org from @kyamagu's account.
+
 - M44 constructors and methods
   - Needs some partial setters, getters / viewers, and tests. The getters and
     setters rc and setRC should be bound to python's __getitem__ .
